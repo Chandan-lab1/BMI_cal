@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बेनी नगरपालिकाको BMI पोर्टल</title>
+    <style>
+        body {
+            font-family: 'Arial, sans-serif';
+            background-color: #EDE8F5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #7091E6;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        header img {
+            height: 100px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        main {
+            padding: 20px;
+        }
+        .bmi-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        .bmi-form input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .bmi-form button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .bmi-form button:hover {
+            background-color: #0056b3;
+        }
+        .bmi-result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .feedback {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="beni_municipality_logo.PNG.png" alt="Beni Municipality Logo">
+        <h1>बेनी नगरपालिकाको BMI पोर्टलमा स्वागत छ।</h1>
+    </header>
+    <main>
+        <div class="bmi-form">
+            <h2>BMI निकाल्न तल आफ्नो तौल र उचाई राख्नुहोस</h2>
+            <label for="height">उचाई (से.मि.):</label><br>
+            <input type="number" id="height" placeholder="उचाइ प्रविष्ट गर्नुहोस्"><br>
+            <label for="weight">तौल (के.जी.):</label><br>
+            <input type="number" id="weight" placeholder="तौल प्रविष्ट गर्नुहोस्"><br>
+            <button onclick="calculateBMI()">BMI निकाल्नुहोस</button>
+            <div class="bmi-result" id="bmi-result"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+    </main>
+    <script>
+        function calculateBMI() {
+            const height = document.getElementById('height').value / 100;
+            const weight = document.getElementById('weight').value;
+            const bmi = (weight / (height * height)).toFixed(2);
+
+            document.getElementById('bmi-result').innerText = `BMI: ${bmi}`;
+
+            let feedback = '';
+            if (bmi < 18.5) {
+                feedback = 'तपाईंको तौल कम छ। यो स्वास्थ्यका लागि राम्रो संकेत होइन। स्वस्थ र पोषणयुक्त खाना खाने, नियमित रुपमा कसरत गर्ने, र तौल बढाउन पोषण विशेषज्ञसँग परामर्श लिनुहोस्। पर्याप्त निन्द्रा र मनोबल उच्च राख्न ध्यान दिनुहोला।';
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                feedback = 'तपाईंको तौल सामान्य अवस्थामा छ। यो स्वास्थ्यको लागि आदर्श हो। स्वस्थ खानपान र नियमित व्यायाम जारी राख्नुहोस्। तनाव व्यवस्थापन र पर्याप्त निद्रामा ध्यान दिनुहोस् ताकि यो स्वस्थ अवस्था कायम रहोस्।';
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                feedback = 'तपाईं अधिक तौलको अवस्थामा हुनुहुन्छ। तौल घटाउनको लागि नियमित व्यायाम गर्नुहोस्, स्वस्थ र कम क्यालोरीयुक्त खाना खानुहोस्, र मिठाइ र बोसोयुक्त खाना घटाउनुहोस्। फिटनेस योजनामा संलग्न भएर स्वस्थ जीवनशैली अपनाउनुहोस्।';
+            } else if (bmi >= 30) {
+                feedback = 'तपाईं मोटोपनाको अवस्थामा हुनुहुन्छ। यो अवस्था विभिन्न स्वास्थ्य समस्याहरूको जोखिम बढाउँछ, जस्तै मुटुको रोग, मधुमेह, र उच्च रक्तचाप। नियमित व्यायाम गर्ने, स्वस्थ खानपानमा ध्यान दिने, र आवश्यक भएमा स्वास्थ्यकर्मीको सल्लाह लिने गर्नुपर्छ।';
+            }
+            document.getElementById('feedback').innerText = feedback;
+        }
+    </script>
+</body>
+</html>
